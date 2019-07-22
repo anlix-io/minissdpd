@@ -13,7 +13,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://miniupnp.free.fr/files
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=e957f403960c1c6b5fd9f2ea5ff23c3217f5d4486be2f36159122459d08cf540
+PKG_HASH:=dfd637b185731e1acb412a86faa9718eb93c04ca08280541a6d22d14d1fb890f
 
 PKG_MAINTAINER:=Guilherme Senges <guilherme@anlix.io>
 PKG_LICENSE:=BSD-3-Clause
