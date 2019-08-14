@@ -42,8 +42,7 @@ endef
 TARGET_CFLAGS += -flto -ffunction-sections -fdata-sections
 TARGET_LDFLAGS += -flto -Wl,--gc-sections
 MAKE_FLAGS += \
-	CC="$(TARGET_CC) \
-	-f Makefile minissdpd
+	CC="$(TARGET_CC)" -f Makefile minissdpd
 
 define Package/minissdpd/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd $(1)/usr/sbin/minissdpd
