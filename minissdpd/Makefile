@@ -39,7 +39,9 @@ define Build/Compile
 endef
 
 define Package/minissdpd/install
+	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd.init.d.script $(1)/etc/init.d/minissdpd
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd $(1)/usr/sbin/
 endef
 
