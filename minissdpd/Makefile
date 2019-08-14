@@ -8,18 +8,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minissdpd
-PKG_VERSION:=1.5
+PKG_VERSION:=1.5.20190210
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://miniupnp.free.fr/files
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).20190210.tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_HASH:=79f7eea9fe71a08dab83211370f2b8a8eda11fd3b197628a87ae12a021a1a518
 
 PKG_MAINTAINER:=Guilherme Senges <guilherme@anlix.io>
 PKG_LICENSE:=BSD-3-Clause
 
+PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+
 include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/version.mk
 
 define Package/minissdpd
   SECTION:=net
@@ -30,22 +31,16 @@ define Package/minissdpd
   URL:=http://miniupnp.free.fr/
 endef
 
-#define Package/minissdpd/conffiles
-#/etc/config/upnpd
-#endef
-
-define Build/Prepare
-	$(call Build/Prepare/Default)
-	echo "$(VERSION_NUMBER)" | tr '() ' '_' >$(PKG_BUILD_DIR)/os.openwrt
+define Build/Compile
+  $(MAKE) -C $(PKG_BUILD_DIR) \
+          CC="$(TARGET_CC)" \
+          CFLAGS="$(TARGET_CFLAGS) -Wall" \
+          LDFLAGS="$(TARGET_LDFLAGS)"
 endef
 
-TARGET_CFLAGS += -flto -ffunction-sections -fdata-sections
-TARGET_LDFLAGS += -flto -Wl,--gc-sections
-MAKE_FLAGS += \
-	CC="$(TARGET_CC)" -f Makefile minissdpd
-
 define Package/minissdpd/install
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd $(1)/usr/sbin/minissdpd
+	$(INSTALL_DIR) $(1)/usr/sbin
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd $(1)/usr/sbin/
 endef
 
 $(eval $(call BuildPackage,minissdpd))
