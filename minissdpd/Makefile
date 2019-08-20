@@ -8,12 +8,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=minissdpd
-PKG_VERSION:=1.5.20190210
+PKG_VERSION:=1.5.20190408
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=http://miniupnp.free.fr/files
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=79f7eea9fe71a08dab83211370f2b8a8eda11fd3b197628a87ae12a021a1a518
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/anlix-io/miniupnp.git
+PKG_SOURCE_DATE:=2019-04-08
+PKG_SOURCE_VERSION:=564464efdbb7ab3a5982ebc411879ec84114129f
+PKG_MIRROR_HASH:=c6c662be33b0e544d84148641f1537709fef9c955e6fc6e3400a590930de50b9
 
 PKG_MAINTAINER:=Guilherme Senges <guilherme@anlix.io>
 PKG_LICENSE:=BSD-3-Clause
@@ -32,17 +34,15 @@ define Package/minissdpd
 endef
 
 define Build/Compile
-  $(MAKE) -C $(PKG_BUILD_DIR) \
+  $(MAKE) -C $(PKG_BUILD_DIR)/minissdpd \
           CC="$(TARGET_CC)" \
           CFLAGS="$(TARGET_CFLAGS) -Wall" \
           LDFLAGS="$(TARGET_LDFLAGS)"
 endef
 
 define Package/minissdpd/install
-	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd.init.d.script $(1)/etc/init.d/minissdpd
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd $(1)/usr/sbin/
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd/minissdpd $(1)/usr/sbin/
 endef
 
 $(eval $(call BuildPackage,minissdpd))
