@@ -29,7 +29,6 @@ define Package/minissdpd
   CATEGORY:=Network
   DEPENDS:=+libnfnetlink
   TITLE:=SSDP managing daemon. Designed to work with miniupnpc, miniupnpd
-  SUBMENU:=Firewall
   URL:=http://miniupnp.free.fr/
 endef
 
