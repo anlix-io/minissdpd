@@ -7,12 +7,12 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=miniupnpd
+PKG_NAME:=anlix-miniupnpd
 PKG_VERSION:=2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://miniupnp.free.fr/files
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=miniupnpd-$(PKG_VERSION).tar.gz
 PKG_HASH:=950894779661197fe093855fda29a728f434b5756eb4fa6cb5f7b9bff7ffe0c1
 
 PKG_MAINTAINER:=Kevin Darbyshire-Bryant <ldir@darbyshire-bryant.me.uk>
@@ -21,7 +21,7 @@ PKG_LICENSE:=BSD-3-Clause
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/version.mk
 
-define Package/miniupnpd
+define Package/anlix-miniupnpd
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+iptables +libip4tc +IPV6:libip6tc +IPV6:ip6tables +libuuid
@@ -29,7 +29,7 @@ define Package/miniupnpd
   URL:=http://miniupnp.free.fr/
 endef
 
-define Package/miniupnpd/conffiles
+define Package/anlix-miniupnpd/conffiles
 /etc/config/upnpd
 endef
 
@@ -47,7 +47,7 @@ MAKE_FLAGS += \
 	CONFIG_OPTIONS="--portinuse --leasefile --igd2" \
 	-f Makefile.linux miniupnpd
 
-define Package/miniupnpd/install
+define Package/anlix-miniupnpd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/etc/config
@@ -63,4 +63,4 @@ define Package/miniupnpd/install
 	$(INSTALL_DATA) ./files/firewall.include $(1)/usr/share/miniupnpd/firewall.include
 endef
 
-$(eval $(call BuildPackage,miniupnpd))
+$(eval $(call BuildPackage,anlix-miniupnpd))
