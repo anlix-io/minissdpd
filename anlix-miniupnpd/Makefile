@@ -7,12 +7,12 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=anlix-miniupnpd
+PKG_NAME:=miniupnpd
 PKG_VERSION:=2.1
 PKG_RELEASE:=1
 
 PKG_SOURCE_URL:=http://miniupnp.free.fr/files
-PKG_SOURCE:=miniupnpd-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_HASH:=950894779661197fe093855fda29a728f434b5756eb4fa6cb5f7b9bff7ffe0c1
 
 PKG_MAINTAINER:=Kevin Darbyshire-Bryant <ldir@darbyshire-bryant.me.uk>

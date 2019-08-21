@@ -24,7 +24,7 @@ PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 
-define Package/minissdpd
+define Package/anlix-minissdpd
   SECTION:=net
   CATEGORY:=Network
   DEPENDS:=+libnfnetlink
@@ -39,9 +39,9 @@ define Build/Compile
           LDFLAGS="$(TARGET_LDFLAGS)"
 endef
 
-define Package/minissdpd/install
+define Package/anlix-minissdpd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd/minissdpd $(1)/usr/sbin/
 endef
 
-$(eval $(call BuildPackage,minissdpd))
+$(eval $(call BuildPackage,anlix-minissdpd))
