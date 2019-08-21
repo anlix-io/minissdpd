@@ -1,0 +1,12 @@
+--- miniupnpd-old.c	2019-08-21 12:14:47.341490965 -0300
++++ miniupnpd.c	2019-08-21 12:15:49.713767567 -0300
+@@ -1990,7 +1990,8 @@
+ #endif	/* ENABLE_IPV6 */
+ 
+ 		/* open socket for SSDP connections */
+-		sudp = OpenAndConfSSDPReceiveSocket(0);
++		// sudp = OpenAndConfSSDPReceiveSocket(0);
++		sudp = -1;
+ 		if(sudp < 0)
+ 		{
+ 			syslog(LOG_NOTICE, "Failed to open socket for receiving SSDP. Trying to use MiniSSDPd");
