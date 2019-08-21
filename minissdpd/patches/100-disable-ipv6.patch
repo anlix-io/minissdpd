@@ -1,0 +1,11 @@
+--- config-old.h	2019-08-21 12:32:57.144196826 -0300
++++ config.h	2019-08-21 12:33:01.916754910 -0300
+@@ -16,7 +16,7 @@
+ #define LOG_MINISSDPD	LOG_DAEMON
+ 
+ /* enable IPv6 */
+-#define ENABLE_IPV6
++// #define ENABLE_IPV6
+ 
+ /* The size of unix socket response buffer */
+ #define RESPONSE_BUFFER_SIZE (1024 * 4)
