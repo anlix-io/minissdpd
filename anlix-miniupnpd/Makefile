@@ -24,7 +24,7 @@ include $(INCLUDE_DIR)/version.mk
 define Package/anlix-miniupnpd
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+iptables +libip4tc +IPV6:libip6tc +IPV6:ip6tables +libuuid
+  DEPENDS:=+iptables +libip4tc +IPV6:libip6tc +IPV6:ip6tables +libuuid +anlix-minissdpd
   TITLE:=Lightweight UPnP IGD, NAT-PMP & PCP daemon
   URL:=http://miniupnp.free.fr/
 endef
