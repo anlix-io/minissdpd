@@ -1,7 +1,7 @@
 #!/bin/sh /etc/rc.common
 # Copyright (C) 2006-2014 OpenWrt.org
 
-START=93
+START=9E
 STOP=16
 
 SERVICE_USE_PID=1
