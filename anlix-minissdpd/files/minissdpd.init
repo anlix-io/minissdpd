@@ -1,14 +1,10 @@
 #!/bin/sh /etc/rc.common
 # Copyright (C) 2006-2014 OpenWrt.org
 
-START=9E
+START=93
 STOP=16
 
 SERVICE_USE_PID=1
-
-boot() {
-	return
-}
 
 start() {
 	config_load "upnpd"
