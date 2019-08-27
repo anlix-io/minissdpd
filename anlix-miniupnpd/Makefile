@@ -8,15 +8,19 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=miniupnpd
-PKG_VERSION:=2.1
+PKG_VERSION:=2.1.20190824
 PKG_RELEASE:=1
 
-PKG_SOURCE_URL:=http://miniupnp.free.fr/files
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_HASH:=950894779661197fe093855fda29a728f434b5756eb4fa6cb5f7b9bff7ffe0c1
+PKG_SOURCE_PROTO:=git
+PKG_SOURCE_URL:=https://github.com/anlix-io/miniupnp.git
+PKG_SOURCE_DATE:=2019-08-24
+PKG_SOURCE_VERSION:=8ab91c37d12ee6cf36ecc041764b71b3d9f92815
+PKG_MIRROR_HASH:=28a85c92e0addb08fbd9fa5c8667f7b898c385de5b34d52f7be3394b7ea199c5
 
-PKG_MAINTAINER:=Kevin Darbyshire-Bryant <ldir@darbyshire-bryant.me.uk>
+PKG_MAINTAINER:=Guilherme Senges <guilherme@anlix.io>
 PKG_LICENSE:=BSD-3-Clause
+
+PKG_BUILD_DIR := $(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/version.mk
@@ -35,7 +39,7 @@ endef
 
 define Build/Prepare
 	$(call Build/Prepare/Default)
-	echo "$(VERSION_NUMBER)" | tr '() ' '_' >$(PKG_BUILD_DIR)/os.openwrt
+	echo "$(VERSION_NUMBER)" | tr '() ' '_' >$(PKG_BUILD_DIR)/miniupnpd/os.openwrt
 endef
 
 TARGET_CFLAGS += -flto -ffunction-sections -fdata-sections
@@ -55,7 +59,7 @@ define Package/anlix-miniupnpd/install
 	$(INSTALL_DIR) $(1)/etc/uci-defaults
 	$(INSTALL_DIR) $(1)/usr/share/miniupnpd
 
-	$(INSTALL_BIN) $(PKG_BUILD_DIR)/miniupnpd $(1)/usr/sbin/miniupnpd
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/miniupnpd/miniupnpd $(1)/usr/sbin/miniupnpd
 	$(INSTALL_BIN) ./files/miniupnpd.init $(1)/etc/init.d/miniupnpd
 	$(INSTALL_CONF) ./files/upnpd.config $(1)/etc/config/upnpd
 	$(INSTALL_DATA) ./files/miniupnpd.hotplug $(1)/etc/hotplug.d/iface/50-miniupnpd
