@@ -14,8 +14,8 @@ PKG_RELEASE:=1
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/anlix-io/miniupnp.git
 PKG_SOURCE_DATE:=2019-08-24
-PKG_SOURCE_VERSION:=8ab91c37d12ee6cf36ecc041764b71b3d9f92815
-PKG_MIRROR_HASH:=28a85c92e0addb08fbd9fa5c8667f7b898c385de5b34d52f7be3394b7ea199c5
+PKG_SOURCE_VERSION:=5bcfa25031a2072793a81faf3cda6e7e82e4a481
+PKG_MIRROR_HASH:=84a8739708573d0b249380f15ed0346348867c2b217a43e6a2d13327afa0409f
 
 PKG_MAINTAINER:=Guilherme Senges <guilherme@anlix.io>
 PKG_LICENSE:=BSD-3-Clause
@@ -44,12 +44,17 @@ endef
 
 TARGET_CFLAGS += -flto -ffunction-sections -fdata-sections
 TARGET_LDFLAGS += -flto -Wl,--gc-sections
-MAKE_FLAGS += \
-	TARGET_OPENWRT=1 TEST=0 LIBS="" \
-	CC="$(TARGET_CC) -DIPTABLES_143 -lip4tc -luuid \
-		$(if $(CONFIG_IPV6),-lip6tc)" \
-	CONFIG_OPTIONS="--portinuse --leasefile --igd2" \
-	-f Makefile.linux miniupnpd
+
+define Build/Compile
+	CFLAGS="$(TARGET_CFLAGS)" \
+	LDFLAGS="$(TARGET_LDFLAGS)" \
+	$(MAKE) -C $(PKG_BUILD_DIR)/miniupnpd \
+		TARGET_OPENWRT=1 TEST=0 LIBS="" \
+		CC="$(TARGET_CC) -DIPTABLES_143 -lip4tc -luuid \
+			$(if $(CONFIG_IPV6),-lip6tc)" \
+		CONFIG_OPTIONS="--portinuse --leasefile --igd2" \
+		-f Makefile.linux miniupnpd
+endef
 
 define Package/anlix-miniupnpd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
