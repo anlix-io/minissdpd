@@ -41,10 +41,8 @@ endef
 
 define Package/anlix-minissdpd/install
 	$(INSTALL_DIR) $(1)/usr/sbin
-	$(INSTALL_DIR) $(1)/etc/init.d
 
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/minissdpd/minissdpd $(1)/usr/sbin/
-	$(INSTALL_BIN) ./files/minissdpd.init $(1)/etc/init.d/minissdpd
 endef
 
 $(eval $(call BuildPackage,anlix-minissdpd))

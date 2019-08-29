@@ -91,7 +91,7 @@ start() {
 	config_get clean_ruleset_interval config clean_ruleset_interval
 	config_get ipv6_listening_ip config ipv6_listening_ip
 
-	local args ifname
+	local argsupnp argsssdp ifname
 
 	. /lib/functions/network.sh
 
@@ -109,10 +109,10 @@ start() {
 	[ -n "$ifname" ] || network_get_device ifname $extiface
 
 	if [ -n "$conffile" ]; then
-		args="-f $conffile"
+		argsupnp="-f $conffile"
 	else
 		local tmpconf="/var/etc/miniupnpd.conf"
-		args="-f $tmpconf"
+		argsupnp="-f $tmpconf"
 		mkdir -p /var/etc
 
 		echo "ext_ifname=$ifname" >$tmpconf
@@ -125,6 +125,7 @@ start() {
 			local device
 			network_get_device device "$iface" && {
 				echo "listening_ip=$device" >>$tmpconf
+				argsssdp="-i $device"
 			}
 		done
 
@@ -187,10 +188,12 @@ start() {
 
 		if [ "$logging" = "1" ]; then
 			SERVICE_DAEMONIZE=1 \
-			service_start /usr/sbin/miniupnpd $args -d
+			service_start /usr/sbin/minissdpd $argsssdp -d
+			SERVICE_DAEMONIZE=1 \
+			service_start /usr/sbin/miniupnpd $argsupnp -d
 		else
-			SERVICE_DAEMONIZE= \
-			service_start /usr/sbin/miniupnpd $args
+			service_start /usr/sbin/minissdpd $argsssdp
+			service_start /usr/sbin/miniupnpd $argsupnp
 		fi
 	else
 		logger -t "upnp daemon" "external interface not found, not starting"
@@ -199,6 +202,7 @@ start() {
 
 stop() {
 	service_stop /usr/sbin/miniupnpd
+	service_stop /usr/sbin/minissdpd
 
 	iptables -t nat -F MINIUPNPD 2>/dev/null
 	iptables -t nat -F MINIUPNPD-POSTROUTING 2>/dev/null
