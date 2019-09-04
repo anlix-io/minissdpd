@@ -1,0 +1,16 @@
+--- a/minissdpd/asyncsendto.c
++++ b/minissdpd/asyncsendto.c
+@@ -21,6 +21,13 @@
+ #include "asyncsendto.h"
+ #include "upnputils.h"
+ 
++#if LINUX_VERSION_CODE <= (4<<16)
++struct in6_pktinfo {
++	struct in6_addr	ipi6_addr;
++	int		ipi6_ifindex;
++};
++#endif
++
+ /* state diagram for a packet :
+  *
+  *                     |
