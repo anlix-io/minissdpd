@@ -3,8 +3,9 @@
 @@ -21,6 +21,13 @@
  #include "asyncsendto.h"
  #include "upnputils.h"
- 
-+#if LINUX_VERSION_CODE <= (4<<16)
++
++#include <linux/version.h> 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(4,0,0)
 +struct in6_pktinfo {
 +	struct in6_addr	ipi6_addr;
 +	int		ipi6_ifindex;
