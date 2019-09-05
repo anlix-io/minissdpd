@@ -1,6 +1,6 @@
 --- a/minissdpd/asyncsendto.c
 +++ b/minissdpd/asyncsendto.c
-@@ -21,6 +21,13 @@
+@@ -21,6 +21,15 @@
  #include "asyncsendto.h"
  #include "upnputils.h"
 +
