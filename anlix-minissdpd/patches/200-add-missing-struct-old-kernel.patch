@@ -5,7 +5,7 @@
  #include "upnputils.h"
  
 +#include <linux/version.h> 
-+#if LINUX_VERSION_CODE < KERNEL_VERSION(4,0,0)
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,11,0)
 +struct in6_pktinfo {
 +       struct in6_addr ipi6_addr;
 +       int             ipi6_ifindex;
